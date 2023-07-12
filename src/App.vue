@@ -1,9 +1,11 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    <router-link to="/admin">Admin Page</router-link>
   </nav>
-  <router-view/>
+  <router-view /> -->
+  <router-view />
 </template>
 
 <style>
@@ -28,3 +30,20 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+
+<script>
+console.log('start of App.vue')
+
+export default {
+  data() {
+    return {
+      //loginUser: {},
+    };
+  },
+
+}
+
+
+
+console.log('end of App.vue')
+</script>
