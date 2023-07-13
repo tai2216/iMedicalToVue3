@@ -1,118 +1,9 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <a class="navbar-brand" href="http://localhost:8081/Backstage"> <img alt="" src="@/assets/img/icon.png" width="30"
-                height="30"> iMedical長照醫療後台管理</a>
-
-        <div style="margin-left: auto; margin-right: 30px;">
-
-            <div class="navbar" id="navbarNav">
-                <!-- <img alt="尚未上傳照片" style="width: 40px; height: 40px; margin-right: 10px; font-size: xx-small;"
-                    src="http://localhost:8081/iMedical/Backstage/downloadImage/${loginSession[0].id}"><img /> -->
-                <ul class=navbar-nav>
-                    <ins v-if="loginUser != ''" style="vertical-align:bottom; margin-right: 20px;">您好! :
-                        <b style="color: red; font: bolder;">
-                            {{ loginUser }}
-                            <!-- <sec:authentication property="name" /> -->
-                        </b> </ins>
-                    <li class="nav-item">
-                        <form method="post" name="logout" action="http://localhost:8081/iMedical/Backstage/logout">
-                            <!-- <sec:csrfInput /> -->
-                            <button type="submit" class="btn btn-outline-dark " @click.prevent="logOut">登出</button>
-                        </form>
-                    </li>
-                </ul>
-
-
-            </div>
-
-
-        </div>
-    </nav>
-
-
-
-
+    <TopNavBar></TopNavBar>
 
 
     <div class="container-all">
-        <!-- 左邊 -->
-        <div class="container-left">
-            <!-- 導覽列 -->
-            <nav id="sidebar">
-                <!-- 展往左邊/縮起來 按鈕 -->
-                <button type="button" id="collapse" class="collapse-btn">
-                    <i class="fa-solid fa-align-left"></i>
-                </button>
-
-
-                <!-- List 列表 -->
-                <ul class="list-unstyled">
-                    <p>後台管理</p>
-                    <li>
-                        <a href="http://localhost:8081/iMedical/Backstage">首頁<i class="fa-solid fa-house"></i> </a>
-                    </li>
-                    <li>
-                        <a href="#sublist" data-bs-toggle="collapse" id="dropdown">管理<i
-                                class="fa-solid fa-list-check"></i></a>
-                        <!-- 子連結列表 -->
-                        <ul id="sublist" class="list-unstyled collapse">
-                            <li>
-                                <a href="http://localhost:8081/iMedical/Backstage/getallEmployee">管理員工</a>
-                            </li>
-                            <li>
-                                <a href="http://localhost:8081/iMedical/Backstage/getAllMember">管理會員</a>
-                            </li>
-                            <li>
-                                <a href="http://localhost:8081/iMedical/Backstage/getAllRealAssistiveDevice">管理輔具</a>
-                            </li>
-                            <li>
-                                <a
-                                    href="http://localhost:8081/iMedical/Backstage/getAllAssistiveDeviceApplicationForm">管理輔具表單</a>
-                            </li>
-                            <li>
-                                <a href="http://localhost:8081/iMedical/Backstage/getAllAgency">管理機構</a>
-                            </li>
-                            <li>
-                                <a href="http://localhost:8081/iMedical/Backstage/getAllCommodities">管理商品</a>
-                            </li>
-                            <li>
-                                <a href="http://localhost:8081/iMedical/Backstage/searchAllNews">管理公告</a>
-                            </li>
-
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="#sublist2" data-bs-toggle="collapse" id="dropdown">表單<i
-                                class="fa-brands fa-wpforms"></i></a>
-                        <ul id="sublist2" class="list-unstyled collapse">
-                            <li>
-                                <a class="dropdown-item"
-                                    href="http://localhost:8081/iMedical/Backstage/goAddEmployee">新進員工表單</a>
-                                <a class="dropdown-item"
-                                    href="http://localhost:8081/iMedical/Backstage/goAddMember">新進會員表單</a>
-                                <a class="dropdown-item"
-                                    href="http://localhost:8081/iMedical/Backstage/goAddRealAssistiveDevice">輔具表單</a>
-                                <a class="dropdown-item"
-                                    href="http://localhost:8081/iMedical/Backstage/goAddAgency">機構表單</a>
-                                <a class="dropdown-item"
-                                    href="http://localhost:8081/iMedical/Backstage/goAddCommodities">商品表單</a>
-                                <a class="dropdown-item"
-                                    href="http://localhost:8081/iMedical/Backstage/addNewsMessage">公告表單</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="http://localhost:8081/iMedical/Backstage/getAllEditLog">編輯紀錄<i
-                                class="fa-brands fa-wpforms"></i></a>
-                    </li>
-
-                </ul>
-
-
-            </nav>
-        </div>
-
+        <LeftNavBar></LeftNavBar>
 
         <div class="container-right" style="overflow: auto;">
             <div class="container-fluid">
@@ -123,13 +14,6 @@
                 <hr>
 
                 <div style="width: 100%; text-align: center; margin-top: 20px; margin-bottom: 30px;">
-                    <form action="http://localhost:8081/iMedical/Backstage/searchEmployee">
-                        <!-- 			<input name="id" type="search" required="required" -->
-                        <!-- 				style="border-radius: 10px; width: 50%;" placeholder=""> -->
-                        <!-- 			<input type="submit" value="查詢"  -->
-                        <!-- 				style="border-style: groove; border-radius: 5px;"> -->
-
-                    </form>
                     <form action="" class="search">
                         <input class="" style="width:80%; border-radius: 4px;" type="text" id="myInput" placeholder="搜尋...">
                     </form>
@@ -200,20 +84,7 @@
                     </div>
                 </div>
 
-
-                <footer class="main-footer" style="margin-top: 100px;">
-                    <div class="container" style="width: 100%; text-align: center;">
-                        <div class="pull-right hidden-xs">
-                            <b>Version</b> 1.0.01
-                        </div>
-                        <strong>Copyright © 2022-2025 <a href="">iMedical</a>.
-                        </strong> All rights reserved.
-                    </div>
-
-                </footer>
-
-
-
+                <Footer></Footer>
 
             </div>
         </div>
@@ -231,6 +102,9 @@ import axios from 'axios';
 import loginView from './LoginView.vue'
 import VueCookies from 'vue-cookies'
 import router from '@/router';
+import TopNavBar from '../components/AdminPageTopNav.vue';
+import LeftNavBar from '../components/AdminPageLeftNav.vue';
+import Footer from '../components/AdminPageFooter.vue';
 //import loginView from './views/LoginView.vue'
 import { createApp, computed, reactive, ref, createHydrationRenderer } from "vue";
 export default {
@@ -241,34 +115,39 @@ export default {
             loginUser: VueCookies.get('loginUserName')
         };
     },
+    components: {
+        TopNavBar,
+        LeftNavBar,
+        Footer
+    },
     methods: {
-        logOut: function () {
-            let ans = confirm('確認登出嗎?');
-            // console.log('log out answer: ', ans)
-            if (ans) {
-                VueCookies.remove('login');
-                VueCookies.remove('loginUserID');
-                VueCookies.remove('loginUserName');
-                VueCookies.remove('loginUserRole');
-                console.log('已清除Cookie');
-                router.push('/');
-                alert('登出成功，若需再度使用請重新登入')
-            } else {
-                return false;
-            }
 
-        }
     },
     async created() {
-        console.log('admi logi', this.loginUser)
+        console.log('login user name: ', this.loginUser)
         await axios.get('http://localhost:8081/iMedical/empList')
             .then(response => { this.list = response.data; })
             .catch(error => { console.log('error:', error); })
 
     }
 
+
 };
 // console.log('AdminView exists loginUser: ', loginUser.adminAccount)
 
+//<!-- JQuery搜尋功能 -->
+$(document).ready(function () {
 
+    $("#myInput").on("keyup", function () {
+        //抓搜尋欄位的輸入值
+        var value = $(this).val().toLowerCase();
+        $("#myBody tr").filter(function () {
+            //toggle切換功能
+            //indexOf把輸入關鍵字切開 結果>-1就是有找到 結果小於-1就是沒有找到
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
+
+});
 </script>

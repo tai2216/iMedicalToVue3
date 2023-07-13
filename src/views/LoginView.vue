@@ -89,7 +89,7 @@ export default {
 
     data() {
         return {
-            loginUser: {},
+            //loginUser: {},
         };
     },
     methods: {
@@ -97,8 +97,10 @@ export default {
     },
     async created() {
         $(document).ready(function () {
-            if (cookies.get('login') === 'true' & this.loginUser != undefined) {
-                console.log('已登入', this.loginUser)
+            if (cookies.get('login') === 'true' & cookies.get('loginUserName') != '') {
+                console.log('已登入', cookies.get('loginUserName'))
+                $("#loginModal").modal('dispose');
+                $('#login-form').remove();
                 router.push('/admin')
             } else {
                 $("#loginModal").modal('show');
