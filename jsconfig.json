@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "esnext",
     "baseUrl": "./",
+    // "apiSource": "http://localhost:8081/iMedical",
     "moduleResolution": "node",
     "paths": {
       "@/*": [

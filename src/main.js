@@ -22,9 +22,10 @@ router.beforeEach((to, from, next) => {
                 dataType: "text",
                 success: function (data) {
                     if (data === 'true') {
+                        console.log('已登入')
                         next();
                     } else {
-                        console.log('未檢查到登入cookie');
+                        console.log('未登入');
                         next({
                             path: '/'
                         });
@@ -52,20 +53,5 @@ router.beforeEach((to, from, next) => {
 })
 
 const app = createApp(App).use(store).use(router).mount('#app');
+
 console.log('end of main.js')
-
-// //<!-- JQuery搜尋功能 -->
-// $(document).ready(function () {
-
-//     $("#myInput").on("keyup", function () {
-//         //抓搜尋欄位的輸入值
-//         var value = $(this).val().toLowerCase();
-//         $("#myBody tr").filter(function () {
-//             //toggle切換功能
-//             //indexOf把輸入關鍵字切開 結果>-1就是有找到 結果小於-1就是沒有找到
-//             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-//         });
-//     });
-
-
-// });

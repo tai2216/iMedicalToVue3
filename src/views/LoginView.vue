@@ -101,13 +101,15 @@ export default {
                 console.log('已登入', cookies.get('loginUserName'))
                 $("#loginModal").modal('dispose');
                 $('#login-form').remove();
-                router.push('/admin')
+                router.push('/admin');
             } else {
                 $("#loginModal").modal('show');
                 $('#login-form').submit(function (e) {
                     e.preventDefault();
                     let username = $('#login-account').val();
+                    //let adminAccount = $('#login-account').val();
                     let password = $('#login-password').val();
+                    //let adminPassword = $('#login-password').val();
                     let rememberMe = $('#remember-me').val();
                     $.ajax({
                         method: 'POST',
@@ -119,14 +121,18 @@ export default {
                         },
                         dataType: 'json',
                         success: function (data) {
+                            console.log(data);
                             console.log(data.message);
                             cookies.set('login', 'true');
-                            cookies.set('loginUserID', data.loginEmployee[0].id);
-                            cookies.set('loginUserName', data.loginEmployee[0].adminAccount);
-                            cookies.set('loginUserRole', data.loginEmployee[0].adminRole);
-                            this.loginUser = data.loginEmployee[0];
+                            cookies.set('loginUserName', data.loginUserName);
+                            cookies.set('jwtToken', data.jwtToken);
+                            alert('登入成功!');
+                            // cookies.set('loginUserID', data.loginEmployee[0].id);
+
+                            // cookies.set('loginUserRole', data.loginEmployee[0].adminRole);
+                            // this.loginUser = data.loginEmployee[0];
                             //App.loginUser = data.loginEmployee[0];
-                            console.log('Login User: ', this.loginUser);
+                            // console.log('Login User: ', this.loginUser);
                             //console.log('Login User: ', App.loginUser);
                             $("#loginModal").modal('dispose');
                             $('#login-form').remove();
@@ -135,8 +141,10 @@ export default {
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             $('#login-message').html(
-                                `<span class="color-red">textStatus=${textStatus};
-                errorThrown=${errorThrown}</span>`
+                                `<span class="color-red">
+                                    textStatus=${textStatus};
+                                    errorThrown=${errorThrown}
+                                </span>`
                             );
                         }
                     })

@@ -3,7 +3,9 @@
 
 
     <div class="container-all">
+
         <LeftNavBar></LeftNavBar>
+
 
         <div class="container-right" style="overflow: auto;">
             <div class="container-fluid">
@@ -66,9 +68,10 @@
                                     <td>{{ li.employeeBirthday }}</td>
                                     <td>{{ li.employeeSalary }}</td>
                                     <td>{{ li.employeeOnboard }}</td>
-                                    <td><a href="">編輯</a>
+                                    <td><a href="#" :id="'td_' + li.id" @click="goEdit">編輯 </a>
                                     </td>
-                                    <td><a href="" onclick="return confirm('確認刪除嗎?')">刪除</a></td>
+                                    <td><a href="#" :id="'td2_' + li.id" @click="goDelete">刪除</a>
+                                    </td>
                                 </tr>
                             </tbody>
 
@@ -84,7 +87,12 @@
                     </div>
                 </div>
 
+
                 <Footer></Footer>
+
+
+
+
 
             </div>
         </div>
@@ -93,26 +101,23 @@
 
 <script>
 
-
-
-import App from '../App.vue';
 import '@/assets/css/mySideBarCSS.css';
 import '@/assets/js/mySideBarJS';
+import App from '../App.vue'
 import axios from 'axios';
-import loginView from './LoginView.vue'
 import VueCookies from 'vue-cookies'
 import router from '@/router';
 import TopNavBar from '../components/AdminPageTopNav.vue';
 import LeftNavBar from '../components/AdminPageLeftNav.vue';
 import Footer from '../components/AdminPageFooter.vue';
-//import loginView from './views/LoginView.vue'
-import { createApp, computed, reactive, ref, createHydrationRenderer } from "vue";
+
+
 export default {
     data() {
         return {
             list: [{}],
-            employeePhoto: '',
-            loginUser: VueCookies.get('loginUserName')
+            loginUser: VueCookies.get('loginUserName'),
+
         };
     },
     components: {
@@ -121,13 +126,45 @@ export default {
         Footer
     },
     methods: {
+        goEdit: async function (e) {
+            e.preventDefault();
+            console.log('goEdit Function triggered');
+            let idParam = parseInt(e.target.id.replace('td_', ''), 10);
+            console.log('id : ' + idParam);
+            router.push({ name: 'edit', params: { id: idParam } });
 
+        },
+
+        goDelete: async function (e) {
+            e.preventDefault();
+            let deleteID = parseInt(e.target.id.replace('td2_', ''), 10);
+            let ans = confirm('是否確認刪除此筆資料? (員工編號: ' + deleteID + ')');
+            if (ans == true) {
+                axios.get('http://localhost:8081/iMedical/deleteEmployee?id=' + deleteID)
+                    .then(response => {
+                        if (response.data == '刪除成功') {
+                            alert('已成功刪除 員工編號: ' + deleteID + '')
+                            router.push('/');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Error Message: ' + error);
+                    })
+            }
+        }
     },
-    async created() {
+    created() {
         console.log('login user name: ', this.loginUser)
-        await axios.get('http://localhost:8081/iMedical/empList')
+        axios.defaults.headers.common['Authorization'] = VueCookies.get('jwtToken');
+        console.log('jwt token: ' + VueCookies.get('jwtToken'));
+        console.log('auth: ' + axios.defaults.headers.common['Authorization']);
+        axios({
+            method: 'GET',
+            url: 'http://localhost:8081/iMedical/empList',
+            responseType: 'json',
+        })
             .then(response => { this.list = response.data; })
-            .catch(error => { console.log('error:', error); })
+            .catch(error => { console.log('error message:', error); })
 
     }
 
